@@ -1,0 +1,10 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo transparente -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- Texto {iml} con mejor espaciado -->
+  <text x="50%" y="55%" font-family="Consolas, 'Courier New', monospace" font-size="100"
+        text-anchor="middle" alignment-baseline="middle" font-weight="bold">
+    <tspan fill="#569CD6">{</tspan><tspan fill="#CE9178">iml</tspan><tspan fill="#569CD6">}</tspan>
+  </text>
+</svg>
