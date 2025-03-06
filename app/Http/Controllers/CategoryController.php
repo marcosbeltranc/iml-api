@@ -14,12 +14,6 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::paginate(5);
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'categories' => $categories
-            ]);
-        }
         return view('category.index')->with('categories', $categories);
     }
 
@@ -49,14 +43,6 @@ class CategoryController extends Controller
         $category->image = $validated['image'];
         $category->save();
 
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Categoría creada exitosamente',
-                'category' => $category
-            ], 201);
-        }
-
         Session::flash('message', 'Registro exitoso');
         return redirect()->route('category.index');
     }
@@ -66,13 +52,6 @@ class CategoryController extends Controller
      */
     public function show(Request $request, Category $category)
     {
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'category' => $category
-            ]);
-        }
-    
         return view('category.show')->with('category', $category);
     }
 
@@ -100,14 +79,6 @@ class CategoryController extends Controller
         $category->image = $request['image'];
         $category->save();
 
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Categoría actualizada exitosamente',
-                'category' => $category
-            ]);
-        }
-
         Session::flash('message', 'Registro editado');
         return redirect()->route('category.index');
     }
@@ -118,13 +89,6 @@ class CategoryController extends Controller
     public function destroy(Request $request, Category $category)
     {
         $category->delete();
-
-        if ($request->expectsJson()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Categoría eliminada exitosamente'
-            ]);
-        }
 
         Session::flash('message', 'Registro eliminado');
         return redirect()->route('category.index');

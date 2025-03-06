@@ -8,9 +8,6 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
-        }
         return view('auth.login');
     }
 
@@ -28,22 +25,9 @@ class AuthController extends Controller
 
             // Solo permite acceso si el level es 0
             if ($user->level === 0) {
-                if ($request->expectsJson()) {
-                    // Si es una solicitud API (JSON), devuelve el token de autenticación
-                    $token = $user->createToken('API Token')->plainTextToken;
-    
-                    return response()->json([
-                        'message' => 'Login successful',
-                        'token' => $token,
-                    ]);
-                }
                 return redirect()->route('dashboard');
             } else {
                 Auth::logout();
-                if ($request->expectsJson()) {
-                    // Respuesta en caso de que no tenga permisos para acceder
-                    return response()->json(['message' => 'No tienes permiso para ingresar.'], 403);
-                }
                 return redirect()->route('login')->withErrors(['error' => 'No tienes permiso para ingresar.']);
             }
         }
